@@ -59,7 +59,7 @@ public class Podometro {
      *  
      */
     public void configurar(double queAltura, char queSexo) {
-        
+
     }
 
      /**
@@ -77,7 +77,7 @@ public class Podometro {
      */
     public void registrarCaminata(int pasos, int dia, int horaInicio,
                             int horaFin) {
-
+        
        
 
     }
@@ -90,11 +90,9 @@ public class Podometro {
      *  
      */
     public void printConfiguracion() {
-
         
-
     }
-
+    
     /**
      * Muestra en pantalla información acerca de la distancia recorrida,
      * pasos, tiempo total caminado, ....
@@ -103,8 +101,6 @@ public class Podometro {
      *  
      */
     public void printEstadísticas() {
-
-        
 
     }
 
@@ -128,8 +124,6 @@ public class Podometro {
      *  
      */    
     public void reset() {
-
-        
 
     }
 
