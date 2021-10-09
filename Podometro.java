@@ -59,7 +59,15 @@ public class Podometro {
      *  
      */
     public void configurar(double queAltura, char queSexo) {
-
+        altura = queAltura;
+        sexo = queSexo;
+        if (sexo == MUJER)  {
+            longitudZancada = Math.floor(altura * ZANCADA_MUJER);
+        }
+        
+        else    {
+            longitudZancada = Math.ceil(altura * ZANCADA_HOMBRE);
+        }
     }
 
      /**
