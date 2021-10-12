@@ -86,68 +86,42 @@ public class Podometro {
      */
     public void registrarCaminata(int pasos, int dia, int horaInicio,
                             int horaFin) {
-        String queDia = "";
-        
+
         tiempo = tiempo + (horaFin - horaInicio);
-        double laborables = 0, dia6 = 0, dia7 = 0;
+        
         
         if (dia >= 1 && dia <= 7) {
-            
+            double laborables = 0, dia6 = 0, dia7 = 0;
             switch (dia)    {
-                case 1: queDia = "Lunes";
+                case 1:
+                case 2:
+                case 3: 
+                case 4: 
+                case 5: totalPasosLaborables += pasos;
                     break;
-                case 2: queDia = "Martes";
+                case 6: totalPasosSabado += pasos;
                     break;
-                case 3: queDia = "Miercoles";
-                    break;
-                case 4: queDia = "Jueves";
-                    break;
-                case 5: queDia = "Viernes";
-                    break;
-                case 6: queDia = "Sabado";
-                    break;
-                default: queDia = "Domingo";
+                case 7: totalPasosDomingo += pasos;
                     break;
             
             }
             if (dia >= 1 && dia <= 5)  {    
-                totalPasosLaborables += pasos;
-                if (sexo == MUJER) {
-                    laborables = pasos * ZANCADA_MUJER;    
-                    
-                }
-                
-                else if (sexo == HOMBRE)   {
-                    laborables = pasos * ZANCADA_HOMBRE; 
-                }
+                laborables = (pasos * longitudZancada) / 100000;
             }
+            
             if (dia >= 6 && dia <= 7)   {    
-                if (dia == 6)   {
-                    totalPasosSabado += pasos;
-                    if (sexo == MUJER) {
-                        dia6 = pasos * ZANCADA_MUJER;  
-                    }
-                    
-                    else if (sexo == HOMBRE){
-                        dia6 = pasos * ZANCADA_HOMBRE; 
-                    }
+                if(dia == 6)    {
+                    dia6 = (pasos * longitudZancada) / 100000; 
                 }
                 if (dia == 7)   {
-                    totalPasosDomingo += pasos;
-                    if (sexo == MUJER) {
-                        dia6 = pasos * ZANCADA_MUJER;  
-                    }
-                    
-                    else if (sexo == HOMBRE){
-                        dia6 = pasos * ZANCADA_HOMBRE; 
-                    }
+                    dia7 = (pasos * longitudZancada) / 100000; 
                 }   
                 totalDistanciaFinSemana += (dia6 + dia7);
             }    
             totalDistanciaSemana = totalDistanciaSemana + (laborables + dia6 + dia7);
         }
-    
-        if (horaInicio >= 2100 && horaInicio <= 2400)   {
+        
+        if (horaInicio >= 2100 && horaInicio < 2400)   {
             caminatasNoche++;
         }
         
@@ -205,26 +179,31 @@ public class Podometro {
      *  en el que se ha caminado más pasos - "SÁBADO"   "DOMINGO" o  "LABORABLES"
      */
     public String diaMayorNumeroPasos() {
-        if ((totalPasosLaborables > totalPasosSabado) && (totalPasosLaborables > totalPasosDomingo))    {
-            if (totalPasosLaborables >= totalPasosSabado)   {
+        if ((totalPasosLaborables >= totalPasosSabado) && (totalPasosLaborables >= totalPasosDomingo))    {
+            
+            if (totalPasosLaborables == totalPasosSabado && totalPasosLaborables == totalPasosDomingo)   {
+                return "LABORABLES SABADO DOMINGO";
+            }
+            else if (totalPasosLaborables == totalPasosSabado) {
                 return "LABORABLES SABADO";
             }
-            else if (totalPasosLaborables >= totalPasosDomingo) {
+            
+            else if (totalPasosLaborables == totalPasosDomingo) {
                 return "LABORABLES DOMINGO";
             }
             return "LABORABLES";
         }
-        if ((totalPasosSabado > totalPasosLaborables) && (totalPasosSabado > totalPasosDomingo))    {
-            if (totalPasosLaborables >= totalPasosDomingo) {
+        if ((totalPasosSabado >= totalPasosLaborables) && (totalPasosSabado >= totalPasosDomingo))    {
+            if (totalPasosSabado == totalPasosDomingo) {
                 return "SABADO DOMINGO";
             }
             return "SABADO";
         }        
-        if ((totalPasosSabado > totalPasosLaborables) && (totalPasosSabado > totalPasosDomingo))    {
+        if ((totalPasosDomingo > totalPasosLaborables) && (totalPasosDomingo > totalPasosSabado))    {
             return "DOMINGO";
         }
         
-        return marca;
+        return "";
     }            
         
     
